@@ -1,0 +1,10 @@
+df['arrival_date'] = pd.to_datetime(df['arrival_date_year'].astype(str) + '-' +
+                                    df['arrival_date_month'] + '-' +
+                                    df['arrival_date_day_of_month'].astype(str))
+
+df['month'] = df['arrival_date'].dt.month
+df['weekday'] = df['arrival_date'].dt.weekday
+df['weekend'] = df['weekday'].isin([5,6]).astype(int)
+
+df['total_nights'] = df['stays_in_week_nights'] + df['stays_in_weekend_nights']
+df['lead_time_bucket'] = pd.cut(df['lead_time'], bins=5, labels=False)
