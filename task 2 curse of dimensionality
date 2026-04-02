@@ -1,0 +1,14 @@
+from sklearn.datasets import make_classification
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.spatial.distance import pdist
+
+dims = [2, 10, 50, 200]
+
+for d in dims:
+    X, _ = make_classification(n_samples=500, n_features=d, random_state=42)
+    distances = pdist(X, metric='euclidean')
+    
+    plt.hist(distances, bins=30)
+    plt.title(f"Distance Distribution (d={d})")
+    plt.show()
