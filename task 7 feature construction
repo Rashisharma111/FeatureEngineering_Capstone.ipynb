@@ -1,0 +1,10 @@
+df['price_per_person'] = df['adr'] / (df['adults'] + df['children'] + 1)
+df['is_family'] = ((df['children'] + df['babies']) > 0).astype(int)
+df['special_req_rate'] = df['total_of_special_requests'] / (df['total_nights'] + 1)
+
+# Interaction
+df['adr_lead'] = df['adr'] * df['lead_time']
+
+# Aggregation (avoid leakage → use train only in real case)
+country_mean_adr = df.groupby('country')['adr'].mean()
+df['country_avg_adr'] = df['country'].map(country_mean_adr)
