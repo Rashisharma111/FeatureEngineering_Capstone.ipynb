@@ -1,0 +1,20 @@
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
+knn_euclidean = Pipeline([
+    ('prep', preprocessor),
+    ('scaler', StandardScaler()),
+    ('knn', KNeighborsClassifier(metric='euclidean'))
+])
+
+knn_manhattan = Pipeline([
+    ('prep', preprocessor),
+    ('scaler', StandardScaler()),
+    ('knn', KNeighborsClassifier(metric='manhattan'))
+])
+
+for name, model in [("Euclidean", knn_euclidean), ("Manhattan", knn_manhattan)]:
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
+    print(name, accuracy_score(y_test, preds))
