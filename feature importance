@@ -1,0 +1,11 @@
+from sklearn.ensemble import RandomForestClassifier
+
+rf = Pipeline([
+    ('prep', preprocessor),
+    ('clf', RandomForestClassifier())
+])
+
+rf.fit(X_train, y_train)
+
+importances = rf.named_steps['clf'].feature_importances_
+print(importances[:15])
