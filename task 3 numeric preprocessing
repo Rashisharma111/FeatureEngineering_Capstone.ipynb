@@ -1,0 +1,15 @@
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
+
+num_sample = df[['lead_time','adr','total_of_special_requests','stays_in_week_nights']].dropna()
+
+scalers = {
+    "MinMax": MinMaxScaler(),
+    "Standard": StandardScaler(),
+    "Robust": RobustScaler()
+}
+
+for name, scaler in scalers.items():
+    scaled = scaler.fit_transform(num_sample)
+    plt.hist(scaled[:,0], bins=30)
+    plt.title(name)
+    plt.show()
